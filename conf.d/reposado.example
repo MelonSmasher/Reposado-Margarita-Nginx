@@ -10,7 +10,7 @@ server {
   }
 
   location / {
-    root                        /mnt/swus/Data/html; # <----- Replace with the location of your reposado repo files.
+    root                        /mnt/swus/Data/html;
   }
 
   # Rewite conditions based on osx version

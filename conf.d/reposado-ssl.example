@@ -4,7 +4,7 @@ server {
   server_name                 swus.domain.tld; # <----- Replace 'swus.domain.tld' this with your hostname.
   access_log                  /var/log/nginx/http.swus.access.log;
   error_log                   /var/log/nginx/http.swus.error.log;
-  root                        /mnt/swus/Data/html; # <----- Replace with the location of your reposado repo files.
+  root                        /mnt/swus/Data/html;
 
  location / {
   return 301                  https://swus.domain.tld;$request_uri; # <----- Replace 'swus.domain.tld' this with your hostname.
@@ -31,7 +31,7 @@ server {
   }
 
   location / {
-    root                        /mnt/swus/Data/html; # <----- Replace with the location of your reposado repo files.
+    root                        /mnt/swus/Data/html;
   }
 
   # Rewite conditions based on osx version
