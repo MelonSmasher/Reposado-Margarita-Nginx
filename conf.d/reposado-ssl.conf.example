@@ -1,0 +1,72 @@
+# HTTP Configuration
+server {
+  listen                      80;
+  server_name                 swus.domain.tld; # <----- Replace 'swus.domain.tld' this with your hostname.
+  access_log                  /var/log/nginx/http.swus.access.log;
+  error_log                   /var/log/nginx/http.swus.error.log;
+  root                        /mnt/swus/Data/html; # <----- Replace with the location of your reposado repo files.
+
+ location / {
+  return 301                  https://swus.domain.tld;$request_uri; # <----- Replace 'swus.domain.tld' this with your hostname.
+ }
+}
+
+# HTTPS Configuration
+server {
+  listen                      443 ssl; 
+ # listen                      443 ssl spdy; # <----- *Optional* Uncomment this line to enable the spdy protocol. Make 
+  server_name                 swus.domain.tld;; # <----- Replace 'swus.domain.tld' this with your hostname.
+
+  access_log                  /var/log/nginx/https.swus.access.log;
+  error_log                   /var/log/nginx/https.swus.error.log;
+
+  ssl_certificate             /etc/ssl/private/chain.pem; # <----- Replace this with your chained ssl certificate.
+  ssl_certificate_key         /etc/ssl/private/private.key; # <----- Replace this with your ssl certificate's private key.
+
+  ssl_ciphers                 HIGH:!aNULL:!MD5;
+  ssl_verify_client           off;
+
+  location ~* .(jpg|jpeg|png|gif|ico|css|js)$ {
+    expires 365d;
+  }
+
+  location / {
+    root                        /mnt/swus/Data/html; # <----- Replace with the location of your reposado repo files.
+  }
+
+  # Rewite conditions based on osx version
+  location /index.sucatalog {
+    # 10.4.x - Tiger
+    if ( $http_user_agent ~ "Darwin/8" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/index$1.sucatalog last;
+    }
+    # 10.5.x - Leopard
+    if ( $http_user_agent ~ "Darwin/9" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/others/index-leopard.merged-1$1.sucatalog last;
+    }
+    # 10.6.x - Snow Leopard
+    if ( $http_user_agent ~ "Darwin/10" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/others/index-leopard-snowleopard.merged-1$1.sucatalog last;
+    }
+    # 10.7.x - Lion
+    if ( $http_user_agent ~ "Darwin/11" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/others/index-lion-snowleopard-leopard.merged-1$1.sucatalog last;
+    }
+    # 10.8.x - Mountain Lion
+    if ( $http_user_agent ~ "Darwin/12" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1$1.sucatalog last;
+    }
+    # 10.9.x - Mavericks
+    if ( $http_user_agent ~ "Darwin/13" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/others/index-10.9-mountainlion-lion-snowleopard-leopard.merged-1$1.sucatalog last;
+    }
+    # 10.10.x - Yosemite
+    if ( $http_user_agent ~ "Darwin/14" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/others/index-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1$1.sucatalog last;
+    }
+    # 10.11.x - El Capitan
+    if ( $http_user_agent ~ "Darwin/15" ) {
+      rewrite ^/index(.*)\.sucatalog$ /content/catalogs/others/index-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1$1.sucatalog last;
+    }
+  }
+}

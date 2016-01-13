@@ -1,0 +1,17 @@
+# HTTP Configuration
+server {
+  listen                      80;
+  server_name                 margarita.domain.tld; # <----- Replace 'margarita.domain.tld' this with your hostname.
+  access_log                  /var/log/nginx/http.margarita.access.log;
+  error_log                   /var/log/nginx/http.margarita.error.log;
+
+  location ~* .(jpg|jpeg|png|gif|ico|css|js)$ {
+    expires 365d;
+  }
+ 
+ location / {
+  #  auth_basic                "Margarita Authentication";  # <----- *Optional* Uncomment to enable HTTP authentication.
+  #  auth_basic_user_file      conf/htpasswd;               # <----- *Optional* Uncomment to enable HTTP authentication.
+    proxy_pass                http://127.0.0.1:5000;
+  }
+}
