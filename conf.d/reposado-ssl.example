@@ -7,7 +7,7 @@ server {
   root                        /mnt/swus/Data/html;
 
  location / {
-  return 301                  https://swus.domain.tld;$request_uri; # <----- Replace 'swus.domain.tld' this with your hostname.
+  return 301                  https://swus.domain.tld$request_uri; # <----- Replace 'swus.domain.tld' this with your hostname.
  }
 }
 
