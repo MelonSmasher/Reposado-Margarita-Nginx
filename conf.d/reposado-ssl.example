@@ -26,10 +26,6 @@ server {
   ssl_ciphers                 HIGH:!aNULL:!MD5;
   ssl_verify_client           off;
 
-  location ~* .(jpg|jpeg|png|gif|ico|css|js)$ {
-    expires 365d;
-  }
-
   location / {
     root                        /mnt/swus/Data/html;
   }

@@ -5,10 +5,6 @@ server {
   access_log                  /var/log/nginx/http.swus.access.log;
   error_log                   /var/log/nginx/http.swus.error.log;
 
-  location ~* .(jpg|jpeg|png|gif|ico|css|js)$ {
-    expires 365d;
-  }
-
   location / {
     root                        /mnt/swus/Data/html;
   }

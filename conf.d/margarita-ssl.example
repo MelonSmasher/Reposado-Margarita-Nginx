@@ -25,14 +25,10 @@ server {
 
   ssl_ciphers                 HIGH:!aNULL:!MD5;
   ssl_verify_client           off;
-
-  location ~* .(jpg|jpeg|png|gif|ico|css|js)$ {
-    expires 365d;
-  }
  
  location / {
   #  auth_basic                "Margarita Authentication";  # <----- *Optional* Uncomment to enable HTTP authentication.
   #  auth_basic_user_file      conf/htpasswd;               # <----- *Optional* Uncomment to enable HTTP authentication.
-    proxy_pass                http://127.0.0.1:5000;
+    proxy_pass                http://127.0.0.1:5000/;
   }
 }
