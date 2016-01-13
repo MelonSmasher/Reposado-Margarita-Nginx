@@ -15,7 +15,7 @@ server {
 server {
   listen                      443 ssl; 
  # listen                      443 ssl spdy; # <----- *Optional* Uncomment this line to enable the spdy protocol. Make 
-  server_name                 swus.domain.tld;; # <----- Replace 'swus.domain.tld' this with your hostname.
+  server_name                 swus.domain.tld; # <----- Replace 'swus.domain.tld' this with your hostname.
 
   access_log                  /var/log/nginx/https.swus.access.log;
   error_log                   /var/log/nginx/https.swus.error.log;
