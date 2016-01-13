@@ -1,3 +1,3 @@
 ICON
 .DS_Store
-conf.d/*.conf
+*.conf
