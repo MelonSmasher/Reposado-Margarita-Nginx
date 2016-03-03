@@ -14,7 +14,8 @@ server {
 # HTTPS Configuration
 server {
   listen                      443 ssl; 
- # listen                      443 ssl spdy; # <----- *Optional* Uncomment this line to enable the spdy protocol. Make 
+ # listen                      443 ssl spdy; # <----- *Optional* Nginx v1.8.x Uncomment this line to enable the spdy protocol. Will not work on Nginx v1.9.x
+ # listen                      443 ssl http2; # <----- *Optional* Nginx v1.9.x Uncomment this line to enable http 2.0. Will not work on Nginx v1.8.x
   server_name                 swus.domain.tld; # <----- Replace 'swus.domain.tld' this with your hostname.
 
   access_log                  /var/log/nginx/https.swus.access.log;
